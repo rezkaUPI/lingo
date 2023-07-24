@@ -1,0 +1,40 @@
+@import "@fontsource/press-start-2p";
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 14px;
+  line-height: 180%;
+  color: #21201E;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.balloon-enter {
+  opacity: 0;
+  transform: scale(0.9);
+}
+
+.balloon-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 300ms, transform 300ms;
+}
+
+.balloon-exit {
+  opacity: 1;
+}
+
+.balloon-exit-active {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 300ms, transform 300ms;
+}
+
