@@ -116,7 +116,7 @@ export default function Animals() {
     <div className="relative flex flex-col items-center justify-center min-h-screen py-2 text-white bg-gradient-linear overflow-hidden">
       <div className="absolute top-0 left-0 p-4">
       <Link href="/menu">
-          <div className="text-xs font-bold text-black cursor-pointer">{'>>'} Back to Menu</div>
+          <div className="text-xs font-bold text-black cursor-pointer">{'<<'} Back to Menu</div>
       </Link>
     </div>
       <div 
