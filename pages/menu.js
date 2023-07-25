@@ -10,11 +10,12 @@ export default function Menu() {
   const [startRecording, setStartRecording] = useState(false);
   const [isTyping, setIsTyping] = useState(false); 
   const [speechRecognitionOutput, setSpeechRecognitionOutput] = useState("");
-  const [recording, setRecording] = useState(false); // Define recording here
+  const [recording, setRecording] = useState(false); 
   const [showRecordingButtons, setShowRecordingButtons] = useState(false);
+  const [typeTimeout, setTypeTimeout] = useState(null);
 
   const messages = [
-    `  Hi, my name is Guru. I'll guide you throughout the game.`,
+    `   Hi, my name is Guru. I'll guide you throughout the game.`,
     `  Please activate the microphone by pressing the mic button and say "Hello".`,
     `  You will be asked to pronounce some words to gain points. These points will be shown on the left side of the game with <img src="heart.svg" alt="Heart Emoji" />`,
     `  Collect 5 heart emojis by collecting 100 points for each game.`,
@@ -44,19 +45,23 @@ export default function Menu() {
     }
   }, [isTyping]);
 
-  const typeWriterEffect = async () => {
+  const typeWriterEffect = () => {
     setIsTyping(true); // start of typing
     let i = 0;
     const speed = 50;
-
+  
     const typewriterText = messages[currentMessageIndex];
-
-    while (i < typewriterText.length) {
-      await new Promise((resolve) => setTimeout(resolve, speed));
+  
+    const typeNextCharacter = () => {
       setText((prevText) => prevText + typewriterText.charAt(i));
       i++;
-    }
-    setIsTyping(false); // end of typing
+      if (i < typewriterText.length) {
+        setTypeTimeout(setTimeout(typeNextCharacter, speed)); // Use setTimeout and save it in state
+      } else {
+        setIsTyping(false); // end of typing
+      }
+    };
+    typeNextCharacter();
   };
 
   useEffect(() => {
@@ -66,7 +71,8 @@ export default function Menu() {
   }, [isTyping]);
 
   const handleNextMessage = () => {
-    setText('');
+    clearTimeout(typeTimeout); // Clear the current timeout
+    setText(''); // Clear the text
     setIsTyping(true); // Start typing before updating current message index
     setCurrentMessageIndex((prevMessageIndex) => prevMessageIndex + 1);
   };
