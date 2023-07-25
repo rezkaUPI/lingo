@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 
 export default function Animals() {
+  
   const [recording, setRecording] = useState(false);
   const [speechRecognitionOutput, setSpeechRecognitionOutput] = useState("");
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
@@ -13,29 +14,33 @@ export default function Animals() {
   const [completed, setCompleted] = useState(false); // <---- Added this
   const recognitionRef = useRef(null);
 
-  const words = ["Play", "Read", "Write", "Sing", "Dance",
-                 "Draw", "Swim", "Jump", "Run", "Eat", 
-                 "Sleep", "Cook", "Ride", "Climb", "Paint",
-                 "Laugh", "Study", "Listen", "Plant", "Talk",
-                 "Hike", "Cycle", "Skate", "Bake", "Explore"];
+  const words = ["Act", "Bake", "Climb", "Dance", "Eat", "Fly", 
+                "Garden", "Hike", "Invent", "Jump", "Kick", "Laugh", 
+                "Move", "Navigate", "Observe", "Paint", "Question", "Read", 
+                "Sing", "Talk", "Unpack", "Venture", "Write", "Xerox",
+                "Yawn", "Zoom"];
 
   useEffect(() => {
     typeWriterEffect();
   }, [currentWordIndex]);
 
   const typeWriterEffect = async () => {
-    setIsTyping(true); 
+    setIsTyping(true);
     let i = 0;
     const speed = 50;
-    const typewriterText = `${(currentWordIndex + 1) % 5 === 0 ? 'GAHAHAHA YOURE GREAT, BUT' : ''}  Can you pronounce this word for me? ${words[currentWordIndex]}`;
-
+    const letter = words[currentWordIndex].charAt(0);
+    const typewriterText = `${(currentWordIndex + 1) % 5 === 0 ? 'GAHAHAHA YOURE GREAT, BUT ' : ''}  Can you pronounce this word for me? It starts with the letter "${letter}" which is the ${currentWordIndex + 1}${currentWordIndex === 0 ? 'st' : currentWordIndex === 1 ? 'nd' : currentWordIndex === 2 ? 'rd' : 'th'} letter in the alphabet. The word is "${words[currentWordIndex]}"`;
+  
+    setText(''); // Reset the text here
     while (i < typewriterText.length) {
       await new Promise((resolve) => setTimeout(resolve, speed));
       setText((prevText) => prevText + typewriterText.charAt(i));
       i++;
     }
-    setIsTyping(false); 
+    setIsTyping(false);
   };
+  
+  
 
   useEffect(() => {
     if (!isTyping && isCorrect !== null) {
@@ -109,7 +114,7 @@ export default function Animals() {
 
   return (
     <div className="relative flex flex-col items-center justify-center min-h-screen py-2 text-white bg-gradient-linear overflow-hidden">
-    <div className="absolute top-0 left-0 p-4">
+      <div className="absolute top-0 left-0 p-4">
       <Link href="/menu">
           <div className="text-xs font-bold text-black cursor-pointer">{'>>'} Back to Menu</div>
       </Link>

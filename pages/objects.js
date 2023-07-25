@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 
 export default function Animals() {
+  
   const [recording, setRecording] = useState(false);
   const [speechRecognitionOutput, setSpeechRecognitionOutput] = useState("");
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
@@ -13,28 +14,32 @@ export default function Animals() {
   const [completed, setCompleted] = useState(false); // <---- Added this
   const recognitionRef = useRef(null);
 
-  const words = ["Ball", "Book", "Pen", "Pencil", "Chair", "Table", "Computer", "Phone", 
-  "Bag", "Toy", "Clock", "Bed", "Cup", "Glass", "Plate", "Car", 
-  "Bike", "Doll", "Hat", "Shoes", "Watch", "Umbrella", "Backpack", 
-  "Camera", "Guitar"];
+  const words = ["Apple", "Bag", "Car", "Doll", "Elephant", 
+                "Fan", "Glass", "Hat", "Ice-cream", "Juice", "Kettle", 
+                "Lamp", "Mug", "Notebook", "Orange", "Pen", "Quilt", "Rug", 
+                "Shoes", "Table", "Umbrella", "Vase", "Watch", "Xylophone", "Yoyo", "Zipper"];
 
   useEffect(() => {
     typeWriterEffect();
   }, [currentWordIndex]);
 
   const typeWriterEffect = async () => {
-    setIsTyping(true); 
+    setIsTyping(true);
     let i = 0;
     const speed = 50;
-    const typewriterText = `${(currentWordIndex + 1) % 5 === 0 ? 'GAHAHAHA YOURE GREAT, BUT' : ''}  Can you pronounce this word for me? ${words[currentWordIndex]}`;
-
+    const letter = words[currentWordIndex].charAt(0);
+    const typewriterText = `${(currentWordIndex + 1) % 5 === 0 ? 'GAHAHAHA YOURE GREAT, BUT ' : ''}  Can you pronounce this word for me? It starts with the letter "${letter}" which is the ${currentWordIndex + 1}${currentWordIndex === 0 ? 'st' : currentWordIndex === 1 ? 'nd' : currentWordIndex === 2 ? 'rd' : 'th'} letter in the alphabet. The word is "${words[currentWordIndex]}"`;
+  
+    setText(''); // Reset the text here
     while (i < typewriterText.length) {
       await new Promise((resolve) => setTimeout(resolve, speed));
       setText((prevText) => prevText + typewriterText.charAt(i));
       i++;
     }
-    setIsTyping(false); 
+    setIsTyping(false);
   };
+  
+  
 
   useEffect(() => {
     if (!isTyping && isCorrect !== null) {

@@ -55,6 +55,9 @@ body {
     5px 5px 0px rgba(0, 0, 0, 0.5),
     6px 6px 0px rgba(0, 0, 0, 0.5);
 }
+.text-shadow {
+  text-shadow: 2px 2px #000, -1px -1px #000, 1px -1px #000, -1px 1px #000, 1px 1px #000;
+}
 
 
 

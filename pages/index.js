@@ -1,9 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useRouter } from 'next/router';
 
 export default function Home() {
   const [name, setName] = useState('');
   const router = useRouter();
+
+  const audioRef = useRef(); // Create a ref for the audio component
+  const [isPlaying, setIsPlaying] = useState(false); // Create a state for play status
+
+  const handlePlay = () => {
+    if(isPlaying) {
+      audioRef.current.pause();
+    } else {
+      audioRef.current.play();
+    }
+    setIsPlaying(!isPlaying);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -13,13 +25,29 @@ export default function Home() {
     }
   }
 
-
   return (
     <div className="relative flex flex-col items-center justify-center min-h-screen py-2 text-white bg-gradient-linear overflow-hidden">
       <img className="absolute top-0 left-0" src="cloud_1.svg" alt="Cloud Animation" />
       <img className="absolute top-0 right-0" src="cloud_2.svg" alt="Cloud Animation" />
       <img className="absolute bottom-0 w-full h-1/4 z-0" style={{bottom: '-5%'}} src="ground.svg" alt="Ground SVG" />
-      
+
+      {/* Add the audio component */}
+      <audio ref={audioRef} src="index.wav" loop />
+
+      {/* Add Play/Pause button */}
+      <button 
+        onClick={handlePlay} 
+        style={{
+          position: 'absolute', 
+          bottom: '-1px', 
+          left: '10px', 
+          fontSize: '10px', 
+          padding: '5px'
+        }}
+      >
+        {isPlaying ? "Pause Sound" : "Play Sound"}
+      </button>
+
       <h1 className="text-2xl mb-4 z-10 self-center golden-text">PGSD Lingo</h1>
       <div className="relative mb-4 z-10 mx-4 py-4">
         <img src="placeholder.svg" alt="Your SVG" />
