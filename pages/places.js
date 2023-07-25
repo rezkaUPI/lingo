@@ -14,41 +14,11 @@ export default function Animals() {
   const [completed, setCompleted] = useState(false); // <---- Added this
   const recognitionRef = useRef(null);
 
-  const audioRef = useRef(null); // Create a ref for the audio component
-  const [isPlaying, setIsPlaying] = useState(false); // Create a state for play status
-  const [soundFile, setSoundFile] = useState(null); // State to hold current sound file
-  
-
-  const words = ["Airport", "Beach", "Cave", "Desert", "Emporium",
+  const words = ["Airport", "Building", "Cave", "Desert", 
                 "Farm", "Garden", "Harbor", "Island", "Jungle", "Kitchen",
                  "Lake", "Mountain", "Nursery", "Office", "Park", "Quarry", 
                  "River", "School", "Temple", "University", "Village", "Waterfall", 
                  "Xenotopia", "Yard", "Zoo"];
-
-    useEffect(() => {
-            if (audioRef.current && isPlaying && audioRef.current.ended) {
-                setIsPlaying(false);
-            }
-        }, [isPlaying]);
-                
-
-    const handlePlay = () => {
-        if (isPlaying) {
-            if(audioRef.current) audioRef.current.pause();
-        } else {
-            try {
-            audioRef.current = new Audio(`sound/${words[currentWordIndex].toLowerCase()}.mp3`);
-            audioRef.current.play();
-            setIsPlaying(true);
-            audioRef.current.onended = function() {
-                setIsPlaying(false);
-            };
-            } catch (err) {
-            console.log('Sound file could not be found');
-            }
-        }
-        };
-          
 
   useEffect(() => {
     typeWriterEffect();
@@ -59,9 +29,8 @@ export default function Animals() {
     let i = 0;
     const speed = 50;
     const letter = words[currentWordIndex].charAt(0);
-    const typewriterText = `${(currentWordIndex + 1) % 5 === 0 ? 'GAHAHAHA YOURE GREAT, BUT ' : ''}  Can you pronounce this word for me? It starts with the letter "${letter}" The word is "${words[currentWordIndex]}"`;
-    const wordSound = words[currentWordIndex].toLowerCase();
-    setSoundFile(`sound/${wordSound}.mp3`); 
+    const typewriterText = `${(currentWordIndex + 1) % 5 === 0 ? 'GAHAHAHA YOURE GREAT, BUT ' : ''}  Can you pronounce this word for me? It starts with the letter "${letter}". The word is "${words[currentWordIndex]}"`;
+  
     setText(''); // Reset the text here
     while (i < typewriterText.length) {
       await new Promise((resolve) => setTimeout(resolve, speed));
@@ -165,25 +134,15 @@ export default function Animals() {
       <img className="absolute right-0 bottom-0 z-10" style={{bottom: '21%'}} src="bush.svg" alt="Bush SVG" />
 
       <div className="absolute right-0 top-10 flex flex-col items-center">
-            <img 
-                className="z-10" 
-                src={((currentWordIndex + 1) % 5 === 0) ? "villain.png" : "guru.png"} 
-                alt="Character PNG" 
+      <img 
+            className="z-10" 
+            src={((currentWordIndex + 1) % 5 === 0) ? "villain.png" : "guru.png"} 
+            alt="Character PNG" 
             />
-            <div className="mt-4 p-4 rounded-xl bg-white text-black z-10">
-                <p>{text}</p>
-            </div>
-            {!isTyping && ( 
-            <button 
-                onClick={handlePlay} 
-                disabled={isPlaying}
-                className="px-2 py-1 text-xxs text-white rounded-md shadow-lg bg-black" style={{boxShadow: '8px 8px 0px 0px #3E250D'}} // added a class to make the button smaller
-            >
-                Listen how it sounds
-            </button>
-            )}
-            </div>
-            
+        <div className="mt-4 p-4 rounded-xl bg-white text-black z-10">
+          <p>{text}</p>
+        </div>
+      </div>
 
       <div className="absolute bottom-30 flex items-center">
         <img className="z-10" src="/raya.png" alt="Raya PNG" />
@@ -205,7 +164,7 @@ export default function Animals() {
           <Link href="/menu">
                 <div className="px-4 py-2 mt-4 text-xl font-bold text-white rounded-md bg-red-600 cursor-pointer">Back to Menu</div>
             </Link>
-        <audio ref={audioRef} src={soundFile} />
+
         </div>
       )}
     </div>
