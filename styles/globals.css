@@ -38,3 +38,27 @@ body {
   transition: opacity 300ms, transform 300ms;
 }
 
+@keyframes spin {
+  0% { transform: rotateY(0deg); }
+  100% { transform: rotateY(1turn); }
+}
+
+.golden-text {
+  color: gold;
+  animation: spin 10s linear infinite;
+  /* Use multiple shadows to create a 3D effect */
+  text-shadow: 
+    1px 1px 0px rgba(0, 0, 0, 0.5), 
+    2px 2px 0px rgba(0, 0, 0, 0.5), 
+    3px 3px 0px rgba(0, 0, 0, 0.5), 
+    4px 4px 0px rgba(0, 0, 0, 0.5),
+    5px 5px 0px rgba(0, 0, 0, 0.5),
+    6px 6px 0px rgba(0, 0, 0, 0.5);
+}
+
+
+
+
+
+
+

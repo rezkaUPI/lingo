@@ -19,8 +19,8 @@ export default function Home() {
       <img className="absolute top-0 left-0" src="cloud_1.svg" alt="Cloud Animation" />
       <img className="absolute top-0 right-0" src="cloud_2.svg" alt="Cloud Animation" />
       <img className="absolute bottom-0 w-full h-1/4 z-0" style={{bottom: '-5%'}} src="ground.svg" alt="Ground SVG" />
-    
-      <h1 className="text-2xl mb-4 z-10 self-center">Purwakarta Quest</h1>
+      
+      <h1 className="text-2xl mb-4 z-10 self-center golden-text">PGSD Lingo</h1>
       <div className="relative mb-4 z-10 mx-4 py-4">
         <img src="placeholder.svg" alt="Your SVG" />
         <p className="absolute top-0 left-0 text-center text-black mx-4 my-4 text-sm" style={{ top: '50%', transform: 'translateY(-50%)' }}>
@@ -46,6 +46,12 @@ export default function Home() {
         </div>
         <button className="px-8 py-2 mt-4 text-white rounded-md w-72 shadow-lg bg-black z-20" style={{boxShadow: '8px 8px 0px 0px #3E250D'}} type="submit">Start</button>
       </form>
+
+      {/* Add the copyright footer */}
+      <div className="absolute bottom-0 right-0 mb-2 mr-2 text-xs text-white">
+      <span className="text-xxs">PGSDxMKB UPI PWK 2023 </span>
+      <img src="logo_upi.svg" alt="UPI Logo" className="inline-block h-4 w-auto" />
+      </div>
     </div>
   );
 }

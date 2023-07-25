@@ -26,7 +26,7 @@ export default function Animals() {
     setIsTyping(true); 
     let i = 0;
     const speed = 50;
-    const typewriterText = `${(currentWordIndex + 1) % 5 === 0 ? 'GAHAHAHA YOURE GREAT, BUT' : ''} Can you pronounce this word for me? ${words[currentWordIndex]}`;
+    const typewriterText = `${(currentWordIndex + 1) % 5 === 0 ? 'GAHAHAHA YOURE GREAT, BUT' : ''}  Can you pronounce this word for me? ${words[currentWordIndex]}`;
 
     while (i < typewriterText.length) {
       await new Promise((resolve) => setTimeout(resolve, speed));
