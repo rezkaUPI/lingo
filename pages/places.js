@@ -13,6 +13,7 @@ export default function Animals() {
   const [love, setLove] = useState(0);
   const [completed, setCompleted] = useState(false); // <---- Added this
   const recognitionRef = useRef(null);
+  
 
   const words = ["Airport", "Beach", "Cave", "Desert", 
                 "Farm", "Garden", "Harbor", "Island", "Jungle", "Kitchen",

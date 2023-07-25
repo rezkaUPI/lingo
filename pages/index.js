@@ -39,7 +39,7 @@ export default function Home() {
         onClick={handlePlay} 
         style={{
           position: 'absolute', 
-          bottom: '-1px', 
+          bottom: '-3px', 
           left: '10px', 
           fontSize: '10px', 
           padding: '5px'
